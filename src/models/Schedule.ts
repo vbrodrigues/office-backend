@@ -28,6 +28,7 @@ class Schedule {
   user_id: string;
 
   @ManyToOne(() => User, user => user.schedules)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Column()
