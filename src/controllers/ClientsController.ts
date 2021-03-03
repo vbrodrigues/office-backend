@@ -1,6 +1,9 @@
 import { Request, Response } from 'express';
 import ClientsRepository from '../repositories/implementations/ClientsRepository';
 import CreateClientService from '../services/CreateClientService';
+import DeleteClientService from '../services/DeleteClientService';
+import FindClientService from '../services/FindClientService';
+import ListClientsService from '../services/ListClientsService';
 import UpdateClientService from '../services/UpdateClientService';
 
 class ClientsController {
@@ -41,6 +44,55 @@ class ClientsController {
       });
 
       return response.json(client);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({ error: err });
+    }
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    try {
+      const clientsRepository = new ClientsRepository();
+
+      const listClients = new ListClientsService(clientsRepository);
+
+      const clients = await listClients.execute();
+
+      return response.json(clients);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({ error: err });
+    }
+  }
+
+  public async index(request: Request, response: Response): Promise<Response> {
+    try {
+      const { client_id } = request.params;
+
+      const clientsRepository = new ClientsRepository();
+
+      const findClient = new FindClientService(clientsRepository);
+
+      const clients = await findClient.execute(client_id);
+
+      return response.json(clients);
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({ error: err });
+    }
+  }
+
+  public async delete(request: Request, response: Response): Promise<Response> {
+    try {
+      const { client_id } = request.params;
+
+      const clientsRepository = new ClientsRepository();
+
+      const deleteClient = new DeleteClientService(clientsRepository);
+
+      await deleteClient.execute(client_id);
+
+      return response.json({ success: true });
     } catch (err) {
       console.log(err);
       return response.status(500).json({ error: err });

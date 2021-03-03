@@ -1,4 +1,3 @@
-import User from '../models/User';
 import IUsersRepository from '../repositories/interfaces/IUsersRepository';
 
 class DeleteUsersService {
