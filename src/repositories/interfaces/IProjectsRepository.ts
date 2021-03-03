@@ -4,6 +4,7 @@ import Project from '../../models/Project';
 
 export default interface IProjectsRepository {
   create(data: ICreateProjectDTO): Promise<Project>;
+  find(): Promise<Project[]>;
   findById(project_id: string): Promise<Project | undefined>;
   findByNameForClient(
     data: IFindProjectByNameForClientDTO,

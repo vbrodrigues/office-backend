@@ -29,6 +29,11 @@ class SchedulesRepository implements ISchedulesRepository {
     return schedule;
   }
 
+  public async find(): Promise<Schedule[]> {
+    const schedules = await this.ormRepository.find();
+    return schedules;
+  }
+
   public async findById(schedule_id: string): Promise<Schedule | undefined> {
     const schedule = await this.ormRepository.findOne(schedule_id);
     return schedule;
@@ -55,6 +60,10 @@ class SchedulesRepository implements ISchedulesRepository {
     });
 
     return schedules;
+  }
+
+  public async delete(schedule_id: string): Promise<void> {
+    await this.ormRepository.delete({ id: schedule_id });
   }
 }
 

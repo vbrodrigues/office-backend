@@ -27,6 +27,11 @@ class ProjectsRepository implements IProjectsRepository {
     return project;
   }
 
+  public async find(): Promise<Project[]> {
+    const projects = await this.ormRepository.find();
+    return projects;
+  }
+
   public async findById(project_id: string): Promise<Project | undefined> {
     const project = await this.ormRepository.findOne(project_id);
     return project;
@@ -44,6 +49,10 @@ class ProjectsRepository implements IProjectsRepository {
     });
 
     return project;
+  }
+
+  public async delete(project_id: string): Promise<void> {
+    await this.ormRepository.delete({ id: project_id });
   }
 }
 

@@ -30,6 +30,11 @@ class ClientsRepository implements IClientsRepository {
     await this.ormRepository.save(client);
   }
 
+  public async find(): Promise<Client[]> {
+    const clients = await this.ormRepository.find();
+    return clients;
+  }
+
   public async findById(client_id: string): Promise<Client | undefined> {
     const client = this.ormRepository.findOne({
       where: { id: client_id },
@@ -48,6 +53,10 @@ class ClientsRepository implements IClientsRepository {
     const client = this.ormRepository.findOne({ email });
 
     return client;
+  }
+
+  public async delete(client_id: string): Promise<void> {
+    await this.ormRepository.delete({ id: client_id });
   }
 }
 

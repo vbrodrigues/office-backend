@@ -13,7 +13,7 @@ class CreateRoleService {
   }
 
   public async execute({ name }: IRequest): Promise<Role> {
-    const roleAlreadyExists = this.rolesRepository.findByName(name);
+    const roleAlreadyExists = await this.rolesRepository.findByName(name);
 
     if (roleAlreadyExists) {
       throw new Error('Role already exists.');

@@ -4,6 +4,7 @@ import Schedule from '../../models/Schedule';
 
 export default interface ISchedulesRepository {
   create(data: ICreateScheduleDTO): Promise<Schedule>;
+  find(): Promise<Schedule[]>;
   findById(schedule_id: string): Promise<Schedule | undefined>;
   findAllForProject(project_id: string): Promise<Schedule[]>;
   findAllBeforeDateForProject(

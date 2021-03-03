@@ -21,6 +21,11 @@ class ProjectFilesRepository implements IProjectFilesRepository {
     return projectFile;
   }
 
+  public async find(): Promise<ProjectFile[]> {
+    const projectFiles = await this.ormRepository.find();
+    return projectFiles;
+  }
+
   public async findById(
     project_file_id: string,
   ): Promise<ProjectFile | undefined> {
@@ -31,6 +36,10 @@ class ProjectFilesRepository implements IProjectFilesRepository {
   public async findByPath(path: string): Promise<ProjectFile | undefined> {
     const projectFile = await this.ormRepository.findOne({ path });
     return projectFile;
+  }
+
+  public async delete(project_file_id: string): Promise<void> {
+    await this.ormRepository.delete({ id: project_file_id });
   }
 }
 

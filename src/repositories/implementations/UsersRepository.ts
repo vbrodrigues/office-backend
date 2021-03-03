@@ -28,6 +28,11 @@ class UsersRepository implements IUsersRepository {
     return user;
   }
 
+  public async find(): Promise<User[]> {
+    const users = await this.ormRepository.find({ relations: ['role'] });
+    return users;
+  }
+
   public async save(user: User): Promise<void> {
     await this.ormRepository.save(user);
   }
@@ -51,6 +56,10 @@ class UsersRepository implements IUsersRepository {
     const user = this.ormRepository.findOne({ email });
 
     return user;
+  }
+
+  public async delete(user_id: string): Promise<void> {
+    await this.ormRepository.delete({ id: user_id });
   }
 }
 

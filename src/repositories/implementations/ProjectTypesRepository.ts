@@ -18,6 +18,11 @@ class ProjectTypesRespository implements IProjectTypesRepository {
     return projectType;
   }
 
+  public async find(): Promise<ProjectType[]> {
+    const projectTypes = await this.ormRepository.find();
+    return projectTypes;
+  }
+
   public async findById(
     project_type_id: string,
   ): Promise<ProjectType | undefined> {

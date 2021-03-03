@@ -18,6 +18,11 @@ class RolesRepository implements IRolesRepository {
     return role;
   }
 
+  public async find(): Promise<Role[]> {
+    const roles = await this.ormRepository.find();
+    return roles;
+  }
+
   public async findById(role_id: string): Promise<Role | undefined> {
     const role = this.ormRepository.findOne(role_id);
     return role;
@@ -27,6 +32,10 @@ class RolesRepository implements IRolesRepository {
     const role = this.ormRepository.findOne({ name });
 
     return role;
+  }
+
+  public async delete(role_id: string): Promise<void> {
+    await this.ormRepository.delete({ id: role_id });
   }
 }
 
