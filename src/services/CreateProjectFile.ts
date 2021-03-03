@@ -1,5 +1,5 @@
 import ProjectFile from '../models/ProjectFile';
-import IProjectFilesRepository from '../repositories/interfaces/IProjecFilesRepository';
+import IProjectFilesRepository from '../repositories/interfaces/IProjectFilesRepository';
 import IProjectsRepository from '../repositories/interfaces/IProjectsRepository';
 
 interface IRequest {

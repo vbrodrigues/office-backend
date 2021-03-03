@@ -6,4 +6,5 @@ export default interface IProjectFilesRepository {
   find(): Promise<ProjectFile[]>;
   findById(project_file_id: string): Promise<ProjectFile | undefined>;
   findByPath(path: string): Promise<ProjectFile | undefined>;
+  delete(project_file_id: string): Promise<void>;
 }
