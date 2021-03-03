@@ -28,12 +28,17 @@ class ProjectsRepository implements IProjectsRepository {
   }
 
   public async find(): Promise<Project[]> {
-    const projects = await this.ormRepository.find();
+    const projects = await this.ormRepository.find({
+      relations: ['client', 'projectType'],
+    });
     return projects;
   }
 
   public async findById(project_id: string): Promise<Project | undefined> {
-    const project = await this.ormRepository.findOne(project_id);
+    const project = await this.ormRepository.findOne({
+      where: { id: project_id },
+      relations: ['client', 'projectType'],
+    });
     return project;
   }
 
@@ -46,6 +51,7 @@ class ProjectsRepository implements IProjectsRepository {
         client_id,
         name,
       },
+      relations: ['client', 'projectType'],
     });
 
     return project;

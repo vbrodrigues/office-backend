@@ -9,4 +9,5 @@ export default interface IProjectsRepository {
   findByNameForClient(
     data: IFindProjectByNameForClientDTO,
   ): Promise<Project | undefined>;
+  delete(project_id: string): Promise<void>;
 }
