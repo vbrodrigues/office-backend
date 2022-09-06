@@ -2,10 +2,12 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
+import Project from './Project';
 
 @Entity('clients')
 class Client {
@@ -26,6 +28,9 @@ class Client {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @OneToMany(() => Project, project => project.client)
+  projects: Project[]
 
   constructor() {
     if (!this.id) {

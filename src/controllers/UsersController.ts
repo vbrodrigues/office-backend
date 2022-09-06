@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
+import { LocalStorage } from '../providers/storage/LocalStorage';
 import RolesRepository from '../repositories/implementations/RolesRepository';
 import UsersRepository from '../repositories/implementations/UsersRepository';
 import CreateUserService from '../services/CreateUserService';
 import DeleteUsersService from '../services/DeleteUserService';
 import FindUsersService from '../services/FindUserService';
 import ListUsersService from '../services/ListUsersService';
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
 import UpdateUserService from '../services/UpdateUserService';
 
 class UsersController {
@@ -17,20 +19,73 @@ class UsersController {
 
       const createUser = new CreateUserService(
         usersRepository,
-        rolesRepository,
+        rolesRepository
       );
 
       const user = await createUser.execute({
         role,
         name,
         email,
-        phone_number,
+        phone_number
       });
 
       return response.json(user);
     } catch (err) {
       console.log(err);
-      return response.status(500).json({ error: err });
+      return response.status(500).json({ error: String(err) });
+    }
+  }
+
+  public async updateAvatar(request: Request, response: Response): Promise<Response> {
+    try {
+
+      const { user_id } = request.params;
+
+      if (!request.file) {
+        return response.status(400).json({ error: 'Please, provide a file.' })
+      }
+
+      const avatarData = {
+        content: request.file.buffer,
+        filename: request.file.originalname
+      }
+
+      const usersRepository = new UsersRepository();
+      const localStorage = new LocalStorage();
+
+      const updateUserAvatar = new UpdateUserAvatarService(usersRepository, localStorage);
+
+      await updateUserAvatar.execute({user_id, avatar: avatarData})
+
+      return response.status(200).json({ success: true })
+
+
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({ error: String(err) });
+    }
+  }
+
+  public async downloadAvatar(request: Request, response: Response): Promise<Response> {
+    try {
+
+      const { user_id } = request.params;
+
+      const usersRepository = new UsersRepository();
+
+      const findUser = new FindUsersService(usersRepository);
+
+      const user = await findUser.execute(user_id);
+
+      if (user?.avatar) {
+        response.download(user?.avatar)
+      } else {
+        return response.status(500).json({ error: 'User does not have a valid avatar.' });
+      }
+
+    } catch (err) {
+      console.log(err);
+      return response.status(500).json({ error: String(err) });
     }
   }
 
@@ -57,7 +112,7 @@ class UsersController {
       return response.json(user);
     } catch (err) {
       console.log(err);
-      return response.status(500).json({ error: err });
+      return response.status(500).json({ error: String(err) });
     }
   }
 
@@ -72,7 +127,7 @@ class UsersController {
       return response.json(users);
     } catch (err) {
       console.log(err);
-      return response.status(500).json({ error: err });
+      return response.status(500).json({ error: String(err) });
     }
   }
 
@@ -89,7 +144,7 @@ class UsersController {
       return response.json(users);
     } catch (err) {
       console.log(err);
-      return response.status(500).json({ error: err });
+      return response.status(500).json({ error: String(err) });
     }
   }
 
@@ -106,7 +161,7 @@ class UsersController {
       return response.json({ success: true });
     } catch (err) {
       console.log(err);
-      return response.status(500).json({ error: err });
+      return response.status(500).json({ error: String(err) });
     }
   }
 }

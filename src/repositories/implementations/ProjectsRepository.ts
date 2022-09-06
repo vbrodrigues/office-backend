@@ -29,7 +29,7 @@ class ProjectsRepository implements IProjectsRepository {
 
   public async find(): Promise<Project[]> {
     const projects = await this.ormRepository.find({
-      relations: ['client', 'projectType'],
+      relations: ['client', 'projectType', 'files'],
     });
     return projects;
   }

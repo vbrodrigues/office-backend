@@ -1,4 +1,5 @@
 import User from '../models/User';
+import { FileData, IStorageProvider } from '../providers/storage/IStorageProvider';
 import IRolesRepository from '../repositories/interfaces/IRolesRepository';
 import IUsersRepository from '../repositories/interfaces/IUsersRepository';
 
@@ -16,7 +17,7 @@ class CreateUserService {
 
   constructor(
     usersRepository: IUsersRepository,
-    rolesRepository: IRolesRepository,
+    rolesRepository: IRolesRepository
   ) {
     this.usersRepository = usersRepository;
     this.rolesRepository = rolesRepository;
@@ -26,7 +27,7 @@ class CreateUserService {
     role,
     name,
     email,
-    phone_number,
+    phone_number
   }: IRequest): Promise<User> {
     const foundRole = await this.rolesRepository.findByName(role);
 
@@ -44,7 +45,7 @@ class CreateUserService {
       role_id: foundRole.id,
       name,
       email,
-      phone_number,
+      phone_number
     });
     return user;
   }

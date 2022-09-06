@@ -4,10 +4,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import Client from './Client';
+import ProjectFile from './ProjectFile';
 import ProjectType from './ProjectType';
 
 @Entity('projects')
@@ -31,6 +33,9 @@ class Project {
 
   @Column()
   name: string;
+
+  @OneToMany(() => ProjectFile, projectFile => projectFile.project)
+  files: ProjectFile[];
 
   @CreateDateColumn()
   created_at: Date;
