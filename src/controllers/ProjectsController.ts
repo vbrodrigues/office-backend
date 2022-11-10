@@ -3,10 +3,10 @@ import ClientsRepository from '../repositories/implementations/ClientsRepository
 import ProjectsRepository from '../repositories/implementations/ProjectsRepository';
 
 import ProjectTypesRespository from '../repositories/implementations/ProjectTypesRepository';
-import CreateProjectService from '../services/CreateProjectService';
-import DeleteProjectService from '../services/DeleteProjectService';
-import FindProjectService from '../services/FindProjectService';
-import ListProjectsService from '../services/ListProjectsService';
+import CreateProjectService from '../services/projects/CreateProjectService';
+import DeleteProjectService from '../services/projects/DeleteProjectService';
+import FindProjectService from '../services/projects/FindProjectService';
+import ListProjectsService from '../services/projects/ListProjectsService';
 
 class ProjectsController {
   public async create(request: Request, response: Response): Promise<Response> {

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import ClientsRepository from '../repositories/implementations/ClientsRepository';
-import CreateClientService from '../services/CreateClientService';
-import DeleteClientService from '../services/DeleteClientService';
-import FindClientService from '../services/FindClientService';
-import ListClientsService from '../services/ListClientsService';
-import UpdateClientService from '../services/UpdateClientService';
+import CreateClientService from '../services/clients/CreateClientService';
+import DeleteClientService from '../services/clients/DeleteClientService';
+import FindClientService from '../services/clients/FindClientService';
+import ListClientsService from '../services/clients/ListClientsService';
+import UpdateClientService from '../services/clients/UpdateClientService';
 
 class ClientsController {
   public async create(request: Request, response: Response): Promise<Response> {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import ProjectTypesRespository from '../repositories/implementations/ProjectTypesRepository';
-import CreateProjectTypeService from '../services/CreateProjectTypeService';
+import CreateProjectTypeService from '../services/projectTypes/CreateProjectTypeService';
 
 class ProjectTypesController {
   public async create(request: Request, response: Response): Promise<Response> {

@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
 import Project from './Project';
+import User from './User';
 
 @Entity('project_files')
 class ProjectFile {
@@ -21,6 +22,13 @@ class ProjectFile {
   @ManyToOne(() => Project)
   @JoinColumn({ name: 'project_id' })
   project: Project;
+
+  @Column()
+  created_by: string;
+
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'created_by' })
+  user: User;
 
   @Column()
   path: string;

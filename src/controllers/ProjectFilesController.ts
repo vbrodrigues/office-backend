@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import ProjectFilesRepository from '../repositories/implementations/ProjectFilesRepository';
 import ProjectsRepository from '../repositories/implementations/ProjectsRepository';
-import CreateProjectFileService from '../services/CreateProjectFile';
-import DeleteProjectFileService from '../services/DeleteProjectFileService';
-import FindProjectFileService from '../services/FindProjectFileService';
-import ListProjectFilesService from '../services/ListProjectFilesService';
+import CreateProjectFileService from '../services/projectFiles/CreateProjectFile';
+import DeleteProjectFileService from '../services/projectFiles/DeleteProjectFileService';
+import FindProjectFileService from '../services/projectFiles/FindProjectFileService';
+import ListProjectFilesService from '../services/projectFiles/ListProjectFilesService';
 
 class ProjectFilesController {
   public async create(request: Request, response: Response): Promise<Response> {
     try {
-      const { project_id, path } = request.body;
+      const { project_id, path, created_by } = request.body;
 
       const projectFilesRepository = new ProjectFilesRepository();
       const projectsRepository = new ProjectsRepository();
@@ -19,7 +19,7 @@ class ProjectFilesController {
         projectsRepository,
       );
 
-      const projectFile = await createProjectFile.execute({ project_id, path });
+      const projectFile = await createProjectFile.execute({ project_id, path, created_by });
 
       return response.json(projectFile);
     } catch (err) {

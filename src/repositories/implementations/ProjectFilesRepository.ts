@@ -13,8 +13,9 @@ class ProjectFilesRepository implements IProjectFilesRepository {
   public async create({
     project_id,
     path,
+    created_by
   }: ICreateProjectFileDTO): Promise<ProjectFile> {
-    const projectFile = this.ormRepository.create({ project_id, path });
+    const projectFile = this.ormRepository.create({ project_id, path, created_by });
 
     await this.ormRepository.save(projectFile);
 
@@ -23,7 +24,7 @@ class ProjectFilesRepository implements IProjectFilesRepository {
 
   public async find(): Promise<ProjectFile[]> {
     const projectFiles = await this.ormRepository.find({
-      relations: ['project', 'project.client', 'project.projectType'],
+      relations: ['project', 'project.client', 'project.projectType', 'user', 'user.role'],
     });
     return projectFiles;
   }
@@ -33,7 +34,7 @@ class ProjectFilesRepository implements IProjectFilesRepository {
   ): Promise<ProjectFile | undefined> {
     const projectFile = await this.ormRepository.findOne({
       where: { id: project_file_id },
-      relations: ['project'],
+      relations: ['project', 'user'],
     });
     return projectFile;
   }

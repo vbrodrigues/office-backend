@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import RolesRepository from '../repositories/implementations/RolesRepository';
-import CreateRoleService from '../services/CreateRoleService';
+import CreateRoleService from '../services/roles/CreateRoleService';
 
 class RolesController {
   public async create(request: Request, response: Response): Promise<Response> {

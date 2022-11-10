@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import ProjectsRepository from '../repositories/implementations/ProjectsRepository';
 import SchedulesRepository from '../repositories/implementations/SchedulesRepository';
 import UsersRepository from '../repositories/implementations/UsersRepository';
-import CreateScheduleService from '../services/CreateScheduleService';
+import CreateScheduleService from '../services/schedules/CreateScheduleService';
 
 class SchedulesController {
   public async create(request: Request, response: Response): Promise<Response> {

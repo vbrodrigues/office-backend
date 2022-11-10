@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import { LocalStorage } from '../providers/storage/LocalStorage';
 import RolesRepository from '../repositories/implementations/RolesRepository';
 import UsersRepository from '../repositories/implementations/UsersRepository';
-import CreateUserService from '../services/CreateUserService';
-import DeleteUsersService from '../services/DeleteUserService';
-import FindUsersService from '../services/FindUserService';
-import ListUsersService from '../services/ListUsersService';
-import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
-import UpdateUserService from '../services/UpdateUserService';
+import CreateUserService from '../services/users/CreateUserService';
+import DeleteUsersService from '../services/users/DeleteUserService';
+import FindUsersService from '../services/users/FindUserService';
+import ListUsersService from '../services/users/ListUsersService';
+import UpdateUserAvatarService from '../services/users/UpdateUserAvatarService';
+import UpdateUserService from '../services/users/UpdateUserService';
 
 class UsersController {
   public async create(request: Request, response: Response): Promise<Response> {
